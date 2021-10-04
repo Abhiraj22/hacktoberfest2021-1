@@ -1,0 +1,79 @@
+Boundary traversal of binaryTree-->
+
+import java.util.*;
+class Node{
+	int data;
+	Node right,left;
+	public Node(int d) {
+		data=d;
+		left=right=null;
+	}
+}
+public class BoundaryTRaversal {
+	ArrayList <Integer> printBoundary(Node node)
+	{
+	     ArrayList<Integer> al = new ArrayList<>();
+	    Node root=node;
+	  
+	    
+	  
+	    if(isLeaf(root)==false){
+	        al.add(root.data);
+	    }
+	     addLeft(root,al);
+	 addLeaf(root,al);
+	   
+	   
+	    addRight(root,al);
+	    return al;
+	}
+void addLeft(Node root,ArrayList<Integer> al){
+	    Node cur = root.left;
+	    while(cur!=null){
+	        if(isLeaf(cur)==false){
+	            al.add(cur.data);}
+	            if(cur.left !=null){
+	                cur=cur.left;
+	            }
+	            else{
+	                cur=cur.right;
+	                }
+	        }
+	    
+	}
+	void addLeaf(Node root,ArrayList<Integer> al){
+	    if(isLeaf(root)){
+	        al.add(root.data);
+	        return ;
+	    }
+	    if(root.left!=null){
+	        addLeaf(root.left, al);
+	    }
+	    if(root.right!=null){
+	        addLeaf(root.right,al);
+	    }
+	}
+	void  addRight(Node root,ArrayList<Integer> al){
+	    Node cur =root.right;
+	    ArrayList<Integer>tmp = new ArrayList<>();
+	    while(cur!=null){
+	        if(isLeaf(cur)==false)
+	        {
+	            tmp.add(cur.data);
+	        }
+	        if(cur.right!=null){
+	            cur=cur.right;
+	        }
+	        else{
+	             cur=cur.left;
+	        }
+	    }
+	        for(int i=tmp.size()-1; i>=0; i--){
+	            al.add(tmp.get(i));
+	        }
+	    
+	}
+	boolean isLeaf(Node root){
+	    return ((root.left==null) && (root.right==null));
+	}
+}
